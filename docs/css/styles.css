@@ -1,0 +1,149 @@
+:root {
+  --bg-dark: #2a2a2a;
+  --bg-medium: #434343;
+  --bg-light: #6a6a6a;
+  --bg-hover: #838383;
+  --color-main: #44AAFF;
+  --color-comment: #11E011;
+  --color-value: #FFAA00;
+  --color-input: #CCB044;
+}
+body {
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--color-main);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+button,
+.custom-file-upload {
+  border: none;
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Roboto;
+  margin-right: 8px;
+  padding: 8px 12px;;
+}
+
+button:hover,
+.custom-file-upload:hover {
+  background-color: var(--bg-hover);
+}
+
+button.sm {
+  font-size: 12px;
+  padding: 4px 6px;
+  margin-left: 4px;
+  min-width: 24px;
+}
+
+
+.toolbar {
+  margin: 8px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.xml {
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+
+/* fixed pins target commands */
+.fixed-container {
+  position: fixed;
+  background-color: var(--bg-dark);
+  border: 3px solid black;
+  width: 20.5rem;
+  right: 1rem;
+  overflow: auto;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-medium);
+  padding: .25rem;
+}
+
+#commands-container {
+  top: 1rem;
+  height: 8rem;
+}
+
+#pins-container {
+  top: 10rem;
+  height: 10rem;
+}
+
+#target-container {
+  top: 21rem;
+  height: 10rem;
+}
+
+#target-container textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 7.5rem;
+  overflow: auto;
+  resize: none;
+  background-color: var(--bg-dark);
+  border: none;
+  color: var(--color-input);
+}
+
+/* focus */
+.xml.focus {
+  border-left: 1px solid lightgrey;
+  background-color: var(--bg-medium);
+  font-weight: 600;
+}
+
+/* hide & chevron */
+.xml .controller {
+  display: inline-block;
+  padding: 4px 4px 0px 4px;
+  cursor: pointer;
+  
+}
+
+.xml .chevron {
+  width: 7px;
+  height: 8px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid white;
+  margin-right: 4px;
+}
+
+.xml.hide .chevron {
+  border-left: 7px solid white;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  margin-right: 2px;
+}
+
+.xml.hide > .xml {
+  display: none;
+}
+
+/* comment & text */
+.xml-value {
+  color: var(--color-value);
+}
+
+.xml[node-name="#comment"] > .xml-value {
+  color: var(--color-comment);
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style>
+:root {
+  --background: #fdc074;
+  --border: #5b2b2a;
+  --primary: #fa9305;
+  --primary2: #d87e00;
+  --primary3: #b14e05;
+  --sky-light: #61e2e4;
+  --sky-dark: #01488f;
+  --sky-font: #ffff66;
+  --primary-font: #221122;
+}
+body{
+  margin: 0;
+}
+#x{
+  box-sizing: border-box;
+  border-right: 100vw solid transparent;
+  border-top: 200vh solid var(--background);
+  transform: translateX(-50vw);
+  overflow: hidden;
+}
+div {
+  height: 100vh;
+  overflow: hidden;
+  background-image: linear-gradient(var(--sky-dark), var(--sky-light));
+  color: var(--sky-font);
+}
+</style>
+  </head>
+  <body>
+    <div>
+      <div id='x'></div>
+    </div>
+    <div>test</div>
+  </body>
+</html>

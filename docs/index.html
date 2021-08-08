@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div class="toolbar">
+      <form enctype="multipart/form-data">
+        <label class="custom-file-upload" for="selected">Select File</label>
+        <input id="selected" type="file" />
+      </form>
+      <button id="expand-all" onClick="expandAll()">Expand All</button>
+      <button id="hide-all" onClick="hideAll()">Hide All</button>
+    </div>
+    <div id="root"></div>
+    <div id="commands-container" class="fixed-container">
+      <div class="header-container">
+        <!-- populated in main.js -->
+      </div>
+    </div>
+    <div id="pins-container" class="fixed-container">
+      <div class="header-container">
+        <h4>Pins</h4>
+      </div>
+    </div>
+    <div id="target-container" class="fixed-container">
+      <div class="header-container">
+        <h4>Expand Target</h4>
+        <button id="expend-target-submit" onClick="expandTarget()" class="sm">Submit</button>
+      </div>
+      <textarea id="expand-target-input">.xml[nn="Test"] &gt; .xml[nn="parent"]</textarea>
+    </div>
+
+    <script src='/js/main.js'></script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>
