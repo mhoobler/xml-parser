@@ -92,6 +92,7 @@ function changeToFocus() {
   }
   findParentBtn.onclick = handleFindParentClick;
   findNextBtn.onclick = handleFindNextClick;
+  createPinBtn.onclick = handleCreatePinClick;
 
   state.target.children[1].insertAdjacentElement("afterend", createPinBtn);
   state.target.children[1].insertAdjacentElement("afterend", findNextBtn);
@@ -150,7 +151,40 @@ function handleFindNextClick(e) {
 }
 
 function handleCreatePinClick(e) {
-  e.stopPropagation();
+  const target = e.currentTarget;
+  const nodeName = (() => {
+    let nodeName = [];
+    let parent = target.parentElement;
+    while (parent.getAttribute("node-name")) {
+      nodeName.unshift(parent.getAttribute("node-name"));
+      parent = parent.parentElement;
+    }
+    return nodeName;
+  })();
+  state.pins.push({
+    string: nodeName.join(" > "),
+    target: e.currentTarget.parentElement,
+  });
+  rerenderPins();
+}
+
+function rerenderPins() {
+  const pins = [...state.pins];
+  const pinsContainer = document.getElementById("pins-container");
+  pinsContainer.innerHTML = '<div class="header-container"><h4>Pins</h4></div>';
+  pins.forEach((pin) => {
+    const elm = document.createElement("div");
+    elm.innerText = pin.string;
+
+    elm.onclick = () => {
+      state.prev = state.target;
+      state.prev.classList.toggle("focus");
+      state.target = pin.target;
+      state.target.classList.toggle("focus");
+      changeToFocus();
+    };
+    pinsContainer.appendChild(elm);
+  });
 }
 
 // Render Helper window

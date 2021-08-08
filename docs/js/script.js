@@ -10,7 +10,7 @@ function htmlToElm(html) {
   return template.content.firstChild;
 }
 
-function addNode(node, elm = root) {
+function addNode(node, elm = null) {
   let div = document.createElement("div");
   let span = document.createElement("span");
   let controller = document.createElement("div");
@@ -23,14 +23,9 @@ function addNode(node, elm = root) {
   chevron.className = "chevron";
   controller.onclick = handleChevronClick;
 
-  if (elm !== root) {
-    div.classList.add("child");
-  }
+  const nodeNameBool = elm && elm.getAttribute("node-name") === "#comment";
 
-  if (
-    node.nodeName === "#text" ||
-    elm.getAttribute("node-name") === "#comment"
-  ) {
+  if (node.nodeName === "#text" || nodeNameBool) {
     span.innerText = node.nodeValue;
     span.classList.add("xml-value");
     span.setAttribute("value", node.nodeValue);
@@ -43,39 +38,41 @@ function addNode(node, elm = root) {
   div.onclick = handleXMLClick;
 
   div.appendChild(span);
-  elm.appendChild(div);
+  if (elm) {
+    div.classList.add("child");
+    elm.appendChild(div);
+  }
 
-  if (
-    node.nodeName === "#comment" &&
-    elm.getAttribute("node-name") !== "#comment"
-  ) {
+  if (node.nodeName === "#comment" && nodeNameBool) {
     addNode(node, div);
   } else {
     for (let child of node.childNodes) {
       addNode(child, div);
     }
   }
+  return div;
 }
 
 // load XML file - FileReader.onload
 function renderXML(string) {
   root.innerHTML = "";
+  // Get rid of any whitespace outisde of enclosing tags
+  // Not exactly a perfect match, but seems to work well enough
   const spaceless = string.replace(/\s+(?=\<)/g, "");
-  // Parse DOM from string
+  // Parse XML from string
+  console.time("parser");
   const parser = new DOMParser();
   const res = parser.parseFromString(spaceless, "application/xml");
+  console.timeEnd("parser");
 
-  // Process DOM
+  // Render XML
   console.time("render");
+  let div = document.createElement("div");
   for (let child of res.childNodes) {
-    addNode(child);
+    div.append(addNode(child));
   }
+  root.appendChild(div);
   console.timeEnd("render");
-
-  // Convert DOM to string
-  const serializer = new XMLSerializer();
-
-  const s = (f) => {};
 }
 
 selected.addEventListener("change", (e) => {
@@ -92,23 +89,3 @@ req.open("GET", url, true);
 req.send();
 
 req.onreadystatechange = () => renderXML(req.responseText);
-
-/*
-req.onreadystatechange = function () {
-  root.innerHTML = "";
-  console.log(req.responseText);
-  const parser = new DOMParser();
-  const res = parser.parseFromString(req.responseText, "application/xml");
-  console.log(res.children);
-
-  // Process DOM
-  for (let child of res.childNodes) {
-    addNode(child, 0);
-  }
-
-  // Convert DOM to string
-  const serializer = new XMLSerializer();
-
-  const s = (f) => {};
-};
-*/

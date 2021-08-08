@@ -10,7 +10,8 @@ app.use("/js", express.static(__dirname + "/docs/js"));
 app.use("/css", express.static(__dirname + "/docs/css"));
 
 app.get("/", (req, res) => {
-  // Hack to fix bug with browser-refresh
+  // Something to fix bug with browser-refresh
+  // This is also good for GHP
   const html = fs.readFileSync("./docs/index.html");
   const $ = cheerio.load(html);
   $("body").append(
