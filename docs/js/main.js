@@ -42,7 +42,7 @@ function expandTarget() {
     .replaceAll("[nv=", "[node-value=")
     .replaceAll("[nn=", "[node-name=");
   let splitSelectors = replaceShorthands
-    .replaceAll(" ", "")
+    .replaceAll(/\/s/g, "")
     .split(">")
     .map((e) => e.split(","));
 
@@ -172,9 +172,10 @@ function rerenderPins() {
   const pins = [...state.pins];
   const pinsContainer = document.getElementById("pins-container");
   pinsContainer.innerHTML = '<div class="header-container"><h4>Pins</h4></div>';
-  pins.forEach((pin) => {
+  pins.forEach((pin, index) => {
     const elm = document.createElement("div");
     elm.innerText = pin.string;
+    elm.dataset.index = index;
 
     elm.onclick = () => {
       state.prev = state.target;
@@ -183,6 +184,8 @@ function rerenderPins() {
       state.target.classList.toggle("focus");
       changeToFocus();
     };
+    pins.pinElm = elm;
+
     pinsContainer.appendChild(elm);
   });
 }

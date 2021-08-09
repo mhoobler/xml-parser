@@ -24,8 +24,12 @@ function addNode(node, elm = null) {
   controller.onclick = handleChevronClick;
 
   const nodeNameBool = elm && elm.getAttribute("node-name") === "#comment";
+  console.log(node.nodeName, node.nodeValue);
 
-  if (node.nodeName === "#text" || nodeNameBool) {
+  if (node.nodeName === "#comment") {
+    div.set;
+    span.innerText = `<!-- ${node.nodeValue} -->`;
+  } else if (node.nodeName === "#text") {
     span.innerText = node.nodeValue;
     span.classList.add("xml-value");
     span.setAttribute("value", node.nodeValue);

@@ -4,7 +4,7 @@
   --bg-light: #6a6a6a;
   --bg-hover: #838383;
   --color-main: #44AAFF;
-  --color-comment: #11E011;
+  --color-comment: #08C008;
   --color-value: #FFAA00;
   --color-input: #CCB044;
 }
@@ -111,6 +111,10 @@ input[type="file"] {
   font-weight: 600;
 }
 
+.xml.focus > .xml {
+  font-weight: 400;
+}
+
 /* hide & chevron */
 .xml .controller {
   display: inline-block;
@@ -144,6 +148,6 @@ input[type="file"] {
   color: var(--color-value);
 }
 
-.xml[node-name="#comment"] > .xml-value {
+.xml[node-name="#comment"] {
   color: var(--color-comment);
 }
