@@ -4,19 +4,26 @@ const state = {
   prev: null,
   target: null,
   pins: [],
-  commands: window.localStorage.getItem("myCommands")
-    ? new Set(window.localStorage.getItem("myCommands").split("|"))
+  commands: window.localStorage.getItem("xmlCommands")
+    ? new Set(window.localStorage.getItem("xmlCommands").split("|"))
     : new Set(),
 };
 
-function update() {
+console.log(state);
+
+function renderCommands() {
   let commandsContainer = document.getElementById("commands-container");
   commandsContainer.innerHTML =
     "<div class='header-container'><h4>Commands</h4><button class='sm' onClick='clearCommands()'>Clear</button></div>";
   for (let c of state.commands) {
-    let p = document.createElement("p");
-    p.innerText = c;
-    commandsContainer.appendChild(p);
+    let div = document.createElement("div");
+    div.classList.add("command");
+    div.innerText = c;
+    commandsContainer.appendChild(div);
+    div.onclick = (e) => {
+      document.getElementById("expand-target-input").value =
+        e.currentTarget.innerText;
+    };
   }
 }
 
@@ -38,6 +45,9 @@ function hideAll(e) {
 
 function expandTarget() {
   let input = document.getElementById("expand-target-input").value;
+  state.commands.add(input);
+  window.localStorage.setItem("xmlCommands", [...state.commands].join("|"));
+
   let replaceShorthands = input
     .replaceAll("[nv=", "[node-value=")
     .replaceAll("[nn=", "[node-name=");
@@ -57,8 +67,8 @@ function expandTarget() {
 
 function clearCommands() {
   state.commands = new Set();
-  window.localStorage.removeItem("myCommands");
-  update();
+  window.localStorage.removeItem("xmlCommands");
+  renderCommands();
 }
 
 function changeToFocus() {
@@ -199,4 +209,4 @@ const xmlStats = (() => {
   return statsElm;
 })();
 
-update();
+renderCommands();

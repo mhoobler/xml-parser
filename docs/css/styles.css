@@ -8,7 +8,9 @@
   --color-value: #FFAA00;
   --color-input: #CCB044;
 }
+html,
 body {
+  font-size: 16px;
   margin: 0;
   background-color: var(--bg-dark);
   color: var(--color-main);
@@ -16,6 +18,7 @@ body {
 
 * {
   box-sizing: border-box;
+  font-family: monospace;
   margin: 0;
 }
 
@@ -81,6 +84,11 @@ input[type="file"] {
 #commands-container {
   top: 1rem;
   height: 8rem;
+}
+
+.command {
+  font-size: 13.3333px;
+  color: var(--color-input);
 }
 
 #pins-container {
