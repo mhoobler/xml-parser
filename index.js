@@ -18,13 +18,13 @@ app.get("/", (req, res) => {
 
   for (let tag of devSrcs) {
     const srcArr = $(tag).attr("src").split("/");
-    const newSrc = "/" + srcArr.slice(1, srcArr.length).join("/");
+    const newSrc = "/" + srcArr.slice(2, srcArr.length).join("/");
     $(tag).attr("src", newSrc);
   }
 
   for (let tag of devHrefs) {
     const hrefArr = $(tag).attr("href").split("/");
-    const newHref = "/" + hrefArr.slice(1, hrefArr.length).join("/");
+    const newHref = "/" + hrefArr.slice(2, hrefArr.length).join("/");
     $(tag).attr("href", newHref);
   }
 
