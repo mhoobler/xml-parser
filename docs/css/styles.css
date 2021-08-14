@@ -54,6 +54,40 @@ button.sm {
   align-items: center;
 }
 
+.toolbar > #loader{
+  position: absolute;
+  left: 20rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
+}
+.toolbar > #loader.hide{
+  display: none;
+}
+
+.toolbar > #loader > div{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  animation: loader 1s ease-out infinite;
+}
+
+.toolbar > #loader > div:nth-child(2){
+  animation-delay: .166s;
+}
+.toolbar > #loader > div:nth-child(3){
+  animation-delay: .33s;
+}
+
+.toolbar > #loader > div > div{
+  height: 8px;
+  width: 8px;
+  border-radius: 8px;
+  background-color: white;
+  transform: translateX(calc(1rem - 5px));
+}
+
+
 input[type="file"] {
   display: none;
 }
@@ -159,4 +193,18 @@ input[type="file"] {
 
 .xml[node-name="#comment"] {
   color: var(--color-comment);
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  90% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

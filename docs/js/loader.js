@@ -1,7 +1,16 @@
 const selected = document.getElementById("selected");
 
+const startLoader = () => {
+  document.getElementById("loader").classList.remove("hide");
+};
+const endLoader = () => {
+  document.getElementById("loader").classList.add("hide");
+};
+
 const fr = new FileReader();
-fr.onload = () => renderXML(fr.result);
+fr.onload = () => {
+  renderXML(fr.result);
+};
 
 function htmlToElm(html) {
   var template = document.createElement("template");
@@ -53,11 +62,11 @@ function addNode(node, elm = null) {
       addNode(child, div);
     }
   }
-  return div;
+  return new Promise((res, rej) => res(div));
 }
 
 // load XML file - FileReader.onload
-function renderXML(string) {
+async function renderXML(string) {
   root.innerHTML = "";
   // Get rid of any whitespace outisde of enclosing tags
   // Not exactly a perfect match, but seems to work well enough
@@ -72,14 +81,17 @@ function renderXML(string) {
   console.time("render");
   let div = document.createElement("div");
   for (let child of res.childNodes) {
-    div.append(addNode(child));
+    let x = await addNode(child);
+    div.append(x);
   }
   root.appendChild(div);
   console.timeEnd("render");
   clearPins();
+  endLoader();
 }
 
 selected.addEventListener("change", (e) => {
+  startLoader();
   var file = e.target.files[0];
   document.title = file.name;
 
@@ -92,4 +104,7 @@ var req = new XMLHttpRequest();
 req.open("GET", url, true);
 req.send();
 
-req.onreadystatechange = () => renderXML(req.responseText);
+req.onreadystatechange = () => {
+  startLoader();
+  renderXML(req.responseText);
+};
