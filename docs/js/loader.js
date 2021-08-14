@@ -24,7 +24,6 @@ function addNode(node, elm = null) {
   controller.onclick = handleChevronClick;
 
   const nodeNameBool = elm && elm.getAttribute("node-name") === "#comment";
-  console.log(node.nodeName, node.nodeValue);
 
   if (node.nodeName === "#comment") {
     div.set;
@@ -77,6 +76,7 @@ function renderXML(string) {
   }
   root.appendChild(div);
   console.timeEnd("render");
+  clearPins();
 }
 
 selected.addEventListener("change", (e) => {

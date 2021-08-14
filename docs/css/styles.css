@@ -18,7 +18,7 @@ body {
 
 * {
   box-sizing: border-box;
-  font-family: monospace;
+  font-family: "Roboto monospace", monospace;
   margin: 0;
 }
 
@@ -86,9 +86,10 @@ input[type="file"] {
   height: 8rem;
 }
 
-.command {
+.pin, .command {
   font-size: 13.3333px;
   color: var(--color-input);
+  padding-bottom: 6px;
 }
 
 #pins-container {
