@@ -98,7 +98,7 @@ selected.addEventListener("change", (e) => {
   fr.readAsText(file);
 });
 
-var url = "http://localhost:3000/js/test";
+var url = window.location.href + "js/test";
 
 var req = new XMLHttpRequest();
 req.open("GET", url, true);
